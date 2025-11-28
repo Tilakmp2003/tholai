@@ -165,7 +165,7 @@ export function FeaturesHero() {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#020202] pt-40 perspective-container"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#020202] pt-28 md:pt-40 perspective-container"
       style={{ perspective: "1000px" }}
     >
       {/* Dynamic 3D Grid Background */}
@@ -190,14 +190,14 @@ export function FeaturesHero() {
             <motion.div 
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-20 left-10 md:left-20 opacity-20"
+              className="absolute -top-20 left-10 md:left-20 opacity-20 hidden md:block"
             >
               <Cpu className="w-24 h-24 text-blue-500" />
             </motion.div>
             <motion.div 
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-10 right-10 md:right-20 opacity-20"
+              className="absolute -top-10 right-10 md:right-20 opacity-20 hidden md:block"
             >
               <Network className="w-32 h-32 text-purple-500" />
             </motion.div>
@@ -215,7 +215,7 @@ export function FeaturesHero() {
             </motion.div>
 
             {/* Main Title with Scramble Effect */}
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-none">
+            <h1 className="text-4xl md:text-9xl font-black tracking-tighter mb-8 leading-none">
               <div className="text-white mb-2 drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                 <ScrambleText text="THE VIRTUAL" />
               </div>

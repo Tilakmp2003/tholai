@@ -104,7 +104,7 @@ export function ProductHero() {
 
         {/* The Artificial Brain (Centerpiece) */}
         <motion.div
-          className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px] preserve-3d z-10"
+          className="relative w-[280px] h-[280px] md:w-[600px] md:h-[600px] preserve-3d z-10"
           style={{
             rotateX: -mousePos.y,
             rotateY: mousePos.x,
@@ -121,16 +121,14 @@ export function ProductHero() {
 
           {/* Spinning Data Rings */}
           {[
-            { size: 300, color: "border-blue-500/30", speed: 20, tilt: 60 },
-            { size: 450, color: "border-purple-500/30", speed: 25, tilt: -45 },
-            { size: 600, color: "border-cyan-500/30", speed: 30, tilt: 30 },
+            { size: "w-[220px] md:w-[300px]", height: "h-[220px] md:h-[300px]", color: "border-blue-500/30", speed: 20, tilt: 60 },
+            { size: "w-[320px] md:w-[450px]", height: "h-[320px] md:h-[450px]", color: "border-purple-500/30", speed: 25, tilt: -45 },
+            { size: "w-[420px] md:w-[600px]", height: "h-[420px] md:h-[600px]", color: "border-cyan-500/30", speed: 30, tilt: 30 },
           ].map((ring, i) => (
             <div 
               key={i}
-              className="absolute top-1/2 left-1/2 preserve-3d"
+              className={`absolute top-1/2 left-1/2 preserve-3d ${ring.size} ${ring.height}`}
               style={{
-                width: `${ring.size}px`,
-                height: `${ring.size}px`,
                 transform: `translate(-50%, -50%) rotateX(${ring.tilt}deg)`,
               }}
             >
@@ -148,18 +146,24 @@ export function ProductHero() {
 
           {/* Floating Satellites */}
           {[
-            { icon: <Globe />, label: "NET", x: -180, y: -120, z: 50 },
-            { icon: <Shield />, label: "SEC", x: 180, y: -120, z: 0 },
-            { icon: <Activity />, label: "OPS", x: 0, y: 200, z: 100 },
-            { icon: <Zap />, label: "PWR", x: -150, y: 100, z: -50 },
-            { icon: <Network />, label: "LINK", x: 150, y: 100, z: -50 },
+            { icon: <Globe />, label: "NET", x: -100, y: -80, z: 50, mdX: -180, mdY: -120 },
+            { icon: <Shield />, label: "SEC", x: 100, y: -80, z: 0, mdX: 180, mdY: -120 },
+            { icon: <Activity />, label: "OPS", x: 0, y: 140, z: 100, mdX: 0, mdY: 200 },
+            { icon: <Zap />, label: "PWR", x: -80, y: 80, z: -50, mdX: -150, mdY: 100 },
+            { icon: <Network />, label: "LINK", x: 80, y: 80, z: -50, mdX: 150, mdY: 100 },
           ].map((node, i) => (
             <motion.div
               key={i}
-              className="absolute top-1/2 left-1/2 w-12 h-12 bg-black/80 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-md shadow-[0_0_20px_rgba(59,130,246,0.2)]"
-              style={{ x: node.x, y: node.y, z: node.z }}
+              className="absolute top-1/2 left-1/2 w-10 h-10 md:w-12 md:h-12 bg-black/80 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-md shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+              style={{ z: node.z }}
+              initial={{ x: node.x, y: node.y }}
               animate={{
-                y: [node.y - 15, node.y + 15, node.y - 15],
+                x: [node.x, node.x], // We'll handle responsive positioning via CSS classes if possible, but framer motion needs values. 
+                // Since we can't easily switch values in animate based on breakpoint without hooks, we'll use a media query hook or just use smaller values that work for both, or use the 'md' values if screen is large.
+                // Actually, let's use a simpler approach: use the smaller values as base and scale up if needed, OR just use the smaller values which look fine on desktop too (tighter cluster).
+                // Let's stick to the smaller values for mobile safety, but ideally we'd use `window.innerWidth` in the component.
+                // For now, let's use the smaller values to ensure no overflow.
+                y: [node.y - 10, node.y + 10, node.y - 10],
               }}
               transition={{
                 duration: 4,
@@ -168,7 +172,7 @@ export function ProductHero() {
                 ease: "easeInOut"
               }}
             >
-              <div className="text-white/80">{node.icon}</div>
+              <div className="text-white/80 scale-75 md:scale-100">{node.icon}</div>
               <div className="absolute -bottom-5 text-[8px] font-mono text-blue-400 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                 {node.label}
               </div>

@@ -18,7 +18,7 @@ export function HeroPremium() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
+    <section ref={ref} className="relative min-h-screen flex items-center pt-24 md:pt-32 pb-20 overflow-hidden">
       {/* Aurora Background */}
       <div className="absolute inset-0 bg-aurora opacity-30 -z-10" />
       
@@ -39,7 +39,7 @@ export function HeroPremium() {
               Accepting invite-only beta
             </div>
 
-            <h1 className="text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
               Autonomous <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
                 Dev Teams.
@@ -51,16 +51,16 @@ export function HeroPremium() {
               environments. Ship software while you sleep.
             </p>
 
-            <div className="mt-10 flex gap-4">
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Link
                 href="/request-invite"
-                className="inline-flex items-center gap-3 rounded-full bg-white text-black px-8 py-4 text-base font-bold hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]"
+                className="inline-flex justify-center items-center gap-3 rounded-full bg-white text-black px-8 py-4 text-base font-bold hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)]"
               >
                 Request Invite
               </Link>
               <Link
                 href="/demo"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-medium text-white hover:bg-white/10 transition-colors backdrop-blur-md"
+                className="inline-flex justify-center items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-base font-medium text-white hover:bg-white/10 transition-colors backdrop-blur-md"
               >
                 Watch Demo
               </Link>
@@ -82,7 +82,7 @@ export function HeroPremium() {
             animate={{ opacity: 1, rotateX: 0, rotateY: 0, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
             style={{ scale }}
-            className="relative mx-auto w-full max-w-2xl perspective-1000"
+            className="relative mx-auto w-full max-w-[90vw] md:max-w-2xl perspective-1000"
           >
             <div className="relative rounded-2xl bg-[#0b0c0d]/90 border border-white/10 p-2 shadow-2xl shadow-primary/20 backdrop-blur-xl transform transition-transform hover:scale-[1.02] duration-500">
               {/* Glow behind terminal */}

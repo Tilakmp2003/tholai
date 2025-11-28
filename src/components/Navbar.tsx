@@ -167,7 +167,7 @@ export function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-x-0 top-24 mx-4 z-40 md:hidden rounded-3xl border border-white/10 bg-black/95 backdrop-blur-2xl p-6 shadow-2xl"
+            className="fixed inset-x-0 top-20 mx-4 z-50 md:hidden rounded-3xl border border-white/10 bg-black/95 backdrop-blur-2xl p-6 shadow-2xl"
           >
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (

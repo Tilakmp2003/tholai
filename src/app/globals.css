@@ -87,6 +87,7 @@
     color: var(--color-foreground);
     font-feature-settings: "rlig" 1, "calt" 1;
     position: relative;
+    overflow-x: hidden;
   }
 
   /* Noise Texture */
