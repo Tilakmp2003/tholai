@@ -1,0 +1,314 @@
+/* Comparison Section - Holographic Grid Theme */
+
+.comparison-section {
+  background-color: #000;
+  padding: 4rem 0; /* Reduced from 10rem */
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-inter, sans-serif);
+  color: #fff;
+}
+
+/* Ambient Background */
+.comparison-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.comparison-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Header */
+.comparison-header {
+  text-align: center;
+  margin-bottom: 3rem; /* Reduced from 6rem */
+  position: relative;
+}
+
+.comparison-title {
+  font-size: clamp(2.5rem, 5vw, 4rem); /* Slightly smaller */
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+  background: linear-gradient(180deg, #fff 0%, #666 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 30px rgba(255,255,255,0.1));
+}
+
+/* The Grid Container */
+.comparison-grid-wrapper {
+  position: relative;
+  border-radius: 24px;
+  padding: 1px; /* For border gradient */
+  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+  overflow: hidden;
+  box-shadow: 0 0 100px -20px rgba(0,0,0,0.8);
+}
+
+.comparison-table {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr 1fr 1fr 1fr;
+  background: #050505;
+  border-radius: 23px; /* Inner radius */
+  position: relative;
+  overflow: hidden;
+  /* Add group for hover effects */
+}
+
+/* Spotlight Effect Layer */
+.grid-spotlight {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y), 
+    rgba(255,255,255,0.06), 
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Cells */
+.comp-cell {
+  padding: 0.75rem 1rem; /* Reduced from 1.5rem */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #666;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  border-right: 1px solid rgba(255,255,255,0.03);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  height: 60px; /* Fixed compact height */
+}
+
+.comp-cell.feature-name {
+  justify-content: flex-start;
+  color: #ccc;
+  font-weight: 500;
+  font-family: var(--font-mono, monospace);
+  padding-left: 2rem;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.comp-cell.header {
+  padding: 1.5rem 1rem;
+  height: auto;
+  font-family: var(--font-mono, monospace);
+  font-weight: 600;
+  color: #888;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Tholai Column - The Beam */
+.comp-cell.tholai {
+  background: rgba(59, 130, 246, 0.02);
+  color: #fff;
+  font-weight: 600;
+  border-right: 1px solid rgba(59, 130, 246, 0.1);
+  border-left: 1px solid rgba(59, 130, 246, 0.1);
+  box-shadow: inset 0 0 30px rgba(59, 130, 246, 0.02);
+}
+
+.comp-cell.tholai.header {
+  background: rgba(59, 130, 246, 0.1);
+  border-top: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+}
+
+/* Hover Interaction */
+.comparison-table:hover .comp-cell {
+  border-color: rgba(255,255,255,0.05);
+}
+
+.comparison-table:hover .comp-cell {
+  opacity: 0.3; /* Dim all cells on hover */
+  filter: blur(1px);
+}
+
+.comparison-table .comp-cell:hover,
+.comparison-table .comp-cell:hover ~ .comp-cell {
+  /* This sibling selector approach is tricky in grid. 
+     Better to handle "row focus" via a wrapper or JS, 
+     but for now let's just keep it simple and tight. 
+     Actually, let's rely on the JS mouse spotlight for "engagement" 
+     and just tighten the CSS here. 
+  */
+  opacity: 1;
+  filter: none;
+}
+
+.comp-row-hover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: rgba(255,255,255,0.02);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.comp-cell:hover ~ .comp-row-hover { /* This selector is tricky in grid, handled in React */ }
+
+/* Icons */
+.status-icon {
+  width: 1.25rem; /* Slightly smaller */
+  height: 1.25rem;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.check { color: #3b82f6; }
+.cross { color: #333; }
+.partial { color: #eab308; }
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .comparison-table {
+    grid-template-columns: 200px 140px repeat(4, 100px);
+    overflow-x: auto;
+  }
+}
+
+/* Bottom Claim Section */
+.claim-section {
+  position: relative;
+  padding: 15rem 0 10rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.claim-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 6rem;
+  position: relative;
+  z-index: 10;
+}
+
+.claim-line {
+  font-size: clamp(4rem, 9vw, 9rem);
+  font-weight: 800;
+  line-height: 0.85; /* Reverted to tight spacing */
+  letter-spacing: -0.06em;
+  color: #444;
+  transition: all 0.5s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.claim-line:hover {
+  color: #666;
+}
+
+.claim-line.highlight {
+  color: #fff;
+  z-index: 2;
+}
+
+/* Glitch Keyframes */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.claim-line.gradient {
+  background: linear-gradient(135deg, #fff 0%, #3b82f6 25%, #a855f7 50%, #3b82f6 75%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 40px rgba(59,130,246,0.4));
+  animation: gradient-flow 3s linear infinite;
+  
+  /* Fix for clipping without adding vertical space */
+  line-height: 0.85; 
+  padding-bottom: 0.4em; 
+  margin-top: 0;
+}
+
+.glitch-text {
+  display: inline-block;
+  position: relative;
+  color: #ef4444; /* Red for 'bugs' */
+  text-shadow: 2px 0 #fff, -2px 0 #000;
+  animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
+
+.claim-quote-box {
+  background: linear-gradient(180deg, rgba(20,20,20,0.8) 0%, rgba(0,0,0,0.9) 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 4rem 3rem;
+  border-radius: 32px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  backdrop-filter: blur(20px);
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 20px 80px -20px rgba(0,0,0,0.8);
+}
+
+.claim-quote-box::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 32px;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.claim-quote-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+}
+
+.claim-quote-highlight {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.claim-quote-highlight span {
+  color: #3b82f6;
+  text-shadow: 0 0 30px rgba(59,130,246,0.4);
+}
