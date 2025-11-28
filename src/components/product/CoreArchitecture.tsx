@@ -76,11 +76,11 @@ export function CoreArchitecture() {
         </p>
       </div>
 
-      <div className="relative w-full max-w-4xl h-[600px] perspective-container flex items-center justify-center">
+      <div className="relative w-full max-w-[300px] md:max-w-4xl h-[600px] md:h-[600px] perspective-container flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0">
         
         {/* 3D Isometric Stack */}
         <motion.div 
-          className="relative w-[500px] h-[500px] preserve-3d"
+          className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] preserve-3d"
           style={{ 
             rotateX, 
             rotateZ: -45,
@@ -97,11 +97,12 @@ export function CoreArchitecture() {
             style={{ z: 100, y: yOrchestrator }}
             onMouseEnter={() => setActiveLayer("orchestrator")}
             onMouseLeave={() => setActiveLayer(null)}
+            onClick={() => setActiveLayer(activeLayer === "orchestrator" ? null : "orchestrator")}
           >
             <div className="absolute inset-0 flex items-center justify-center transform -rotate-z-[45deg] -rotate-x-[60deg]">
-              <Cpu className="w-24 h-24 text-blue-400 opacity-50 group-hover:opacity-100 transition-opacity" />
+              <Cpu className="w-16 h-16 md:w-24 md:h-24 text-blue-400 opacity-50 group-hover:opacity-100 transition-opacity" />
             </div>
-            <div className="absolute top-4 left-4 text-blue-400 font-mono text-sm">ORCHESTRATOR_LAYER</div>
+            <div className="absolute top-4 left-4 text-blue-400 font-mono text-xs md:text-sm">ORCHESTRATOR_LAYER</div>
           </motion.div>
 
           {/* Runtime Layer (Middle) */}
@@ -113,11 +114,12 @@ export function CoreArchitecture() {
             style={{ z: 50, y: yRuntime }}
             onMouseEnter={() => setActiveLayer("runtime")}
             onMouseLeave={() => setActiveLayer(null)}
+            onClick={() => setActiveLayer(activeLayer === "runtime" ? null : "runtime")}
           >
             <div className="absolute inset-0 flex items-center justify-center transform -rotate-z-[45deg] -rotate-x-[60deg]">
-              <Layers className="w-24 h-24 text-purple-400 opacity-50 group-hover:opacity-100 transition-opacity" />
+              <Layers className="w-16 h-16 md:w-24 md:h-24 text-purple-400 opacity-50 group-hover:opacity-100 transition-opacity" />
             </div>
-            <div className="absolute top-4 left-4 text-purple-400 font-mono text-sm">RUNTIME_LAYER</div>
+            <div className="absolute top-4 left-4 text-purple-400 font-mono text-xs md:text-sm">RUNTIME_LAYER</div>
           </motion.div>
 
           {/* Data Layer (Bottom) */}
@@ -129,22 +131,23 @@ export function CoreArchitecture() {
             style={{ z: 0, y: yData }}
             onMouseEnter={() => setActiveLayer("data")}
             onMouseLeave={() => setActiveLayer(null)}
+            onClick={() => setActiveLayer(activeLayer === "data" ? null : "data")}
           >
             <div className="absolute inset-0 flex items-center justify-center transform -rotate-z-[45deg] -rotate-x-[60deg]">
-              <Database className="w-24 h-24 text-green-400 opacity-50 group-hover:opacity-100 transition-opacity" />
+              <Database className="w-16 h-16 md:w-24 md:h-24 text-green-400 opacity-50 group-hover:opacity-100 transition-opacity" />
             </div>
-            <div className="absolute top-4 left-4 text-green-400 font-mono text-sm">DATA_LAYER</div>
+            <div className="absolute top-4 left-4 text-green-400 font-mono text-xs md:text-sm">DATA_LAYER</div>
           </motion.div>
 
           {/* Connecting Beams */}
           <motion.div className="absolute inset-0 pointer-events-none" style={{ z: 50 }}>
-             <div className="absolute left-1/2 top-1/2 w-1 h-[400px] bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 -translate-x-1/2 -translate-y-1/2 opacity-30 blur-sm" />
+             <div className="absolute left-1/2 top-1/2 w-1 h-[250px] md:h-[400px] bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 -translate-x-1/2 -translate-y-1/2 opacity-30 blur-sm" />
           </motion.div>
 
         </motion.div>
 
-        {/* Info HUD (Floating Side Panel) */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-80 hidden lg:block">
+        {/* Info HUD (Floating Side Panel for Desktop, Bottom for Mobile) */}
+        <div className="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 w-full md:w-80 px-4 md:px-0">
           <AnimatePresence mode="wait">
             {activeLayer && (
               <motion.div
@@ -152,7 +155,7 @@ export function CoreArchitecture() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="holo-card border-l-4"
+                className="holo-card border-l-4 bg-black/80 backdrop-blur-md p-6 rounded-xl border border-white/10"
                 style={{ borderLeftColor: activeLayer === 'orchestrator' ? '#60a5fa' : activeLayer === 'runtime' ? '#c084fc' : '#4ade80' }}
               >
                 {layers.map(layer => {
@@ -183,10 +186,20 @@ export function CoreArchitecture() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.5 }}
                 exit={{ opacity: 0 }}
-                className="text-center text-gray-500 font-mono text-xs"
+                className="text-center text-gray-500 font-mono text-xs hidden md:block"
               >
                 HOVER_LAYER_FOR_TELEMETRY
               </motion.div>
+            )}
+            {!activeLayer && (
+               <motion.div
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 0.5 }}
+               exit={{ opacity: 0 }}
+               className="text-center text-gray-500 font-mono text-xs md:hidden"
+             >
+               TAP_LAYER_FOR_TELEMETRY
+             </motion.div>
             )}
           </AnimatePresence>
         </div>

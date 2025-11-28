@@ -73,7 +73,7 @@ export function TechStackPremium() {
       </div>
 
       {/* Orbit Visualization */}
-      <div className="relative w-[800px] h-[800px] flex items-center justify-center -mt-32 scale-75 md:scale-100">
+      <div className="relative w-[800px] h-[800px] flex items-center justify-center -mt-32 scale-[0.45] md:scale-100 origin-center">
         {/* Central Core */}
         <div className="absolute z-20 w-24 h-24 rounded-full bg-black border border-primary/50 flex items-center justify-center shadow-[0_0_50px_rgba(22,199,132,0.3)]">
           <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping opacity-20" />

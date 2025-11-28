@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useSpring, useTransform, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, useMotionTemplate, useMotionValue, AnimatePresence } from "framer-motion";
 import { 
   Book, Terminal, Shield, Database, Cpu, 
   GitBranch, Activity, Lock, DollarSign, Eye,
-  ChevronRight, FileText, Layout, Users, Scan, 
+  ChevronRight, FileText, Layout, Users, Scan, ChevronDown, 
   Binary, Network, Server, Code, Zap, Globe
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -144,7 +144,7 @@ function CodeBlock({ code, language = "json", title }: { code: string, language?
 
 function SectionHeading({ title, id }: { title: string, id: string }) {
   return (
-    <div id={id} className="scroll-mt-32 mb-12 pt-12 border-t border-white/5 first:border-0 first:pt-0">
+    <div id={id} className="scroll-mt-40 md:scroll-mt-32 mb-12 pt-12 border-t border-white/5 first:border-0 first:pt-0">
       <div className="flex items-center gap-4 mb-6">
         <div className="h-px flex-1 bg-gradient-to-r from-blue-500/50 to-transparent" />
         <h2 className="text-2xl md:text-4xl font-bold text-white tracking-tight uppercase font-mono">
@@ -158,6 +158,7 @@ function SectionHeading({ title, id }: { title: string, id: string }) {
 
 export function DocsViewer() {
   const [activeSection, setActiveSection] = useState("purpose");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
@@ -182,10 +183,7 @@ export function DocsViewer() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 120,
-        behavior: "smooth"
-      });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -207,9 +205,57 @@ export function DocsViewer() {
         style={{ scaleX }}
       />
 
-      <div className="container mx-auto px-4 pt-32 pb-24 flex items-start gap-16 relative z-10">
+      <div className="container mx-auto px-4 pt-48 lg:pt-32 flex items-start gap-16 relative z-10">
         
-        {/* Sidebar Navigation (HUD Style) */}
+        {/* Mobile Navigation Bar */}
+        <div className="lg:hidden fixed top-20 left-0 right-0 z-50 px-4 py-2 bg-black/80 backdrop-blur-xl border-b border-white/10">
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="w-full flex items-center justify-between p-3 rounded bg-white/5 border border-white/10 text-xs font-mono text-blue-400"
+          >
+            <div className="flex items-center gap-2">
+              <Terminal className="w-3 h-3" />
+              <span>SYSTEM_INDEX // {SECTIONS.find(s => s.id === activeSection)?.title}</span>
+            </div>
+            <ChevronDown className={cn("w-3 h-3 transition-transform", isMobileMenuOpen ? "rotate-180" : "")} />
+          </button>
+
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="overflow-hidden bg-[#050505] border-x border-b border-white/10 rounded-b-lg absolute left-4 right-4 shadow-2xl shadow-black/90"
+              >
+                <div className="p-2 space-y-1">
+                  {SECTIONS.map((section) => (
+                    <button
+                      key={section.id}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setTimeout(() => scrollToSection(section.id), 100);
+                      }}
+                      className={cn(
+                        "w-full text-left px-3 py-2 rounded flex items-center gap-3 text-xs font-mono transition-colors",
+                        activeSection === section.id 
+                          ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" 
+                          : "text-gray-500 hover:bg-white/5 hover:text-gray-300"
+                      )}
+                    >
+                      <span className={cn("opacity-50", activeSection === section.id && "opacity-100")}>
+                        {section.icon}
+                      </span>
+                      {section.title}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Sidebar Navigation (Desktop) */}
         <aside className="hidden lg:block w-72 shrink-0 sticky top-32 h-[calc(100vh-8rem)] overflow-y-auto pr-4 border-r border-white/5 no-scrollbar">
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-6 text-xs font-mono text-blue-500/50">
@@ -261,7 +307,7 @@ export function DocsViewer() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 max-w-4xl">
+        <main className="flex-1 max-w-4xl w-full min-w-0">
           {/* Hero Header */}
           <div className="mb-24 relative">
             <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
@@ -270,7 +316,7 @@ export function DocsViewer() {
               <Scan className="w-3 h-3" />
               CLASSIFIED_DOCUMENT_V1.0
             </div>
-            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter uppercase leading-none">
+            <h1 className="text-3xl md:text-5xl lg:text-7xl font-black text-white mb-6 tracking-tighter uppercase leading-none">
               <div className="mb-2">Virtual Software</div>
               <div className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
                 <ScrambleText text="COMPANY" />
@@ -362,7 +408,7 @@ export function DocsViewer() {
           {/* 2. Org Hierarchy */}
           <SectionHeading id="hierarchy" title="02_ORG_HIERARCHY" />
           <div className="space-y-8">
-            <div className="relative border-l border-white/10 pl-8 space-y-12">
+            <div className="relative border-l border-white/10 pl-4 md:pl-8 space-y-12">
               {[
                 { level: "L4", title: "EXECUTIVE", roles: ["CEO Agent", "CTO Agent"], color: "purple", desc: "Strategic goals, Architecture standards" },
                 { level: "L3", title: "MANAGEMENT", roles: ["Product Manager", "Team Lead"], color: "blue", desc: "PRDs, Task decomposition, Quality ownership" },

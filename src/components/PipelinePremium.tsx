@@ -205,7 +205,7 @@ export function PipelinePremium() {
             style={{ scaleY }}
           />
 
-          <div className="space-y-32">
+          <div className="space-y-20 md:space-y-32">
             {steps.map((step, index) => {
               const isEven = index % 2 === 0;
               return (

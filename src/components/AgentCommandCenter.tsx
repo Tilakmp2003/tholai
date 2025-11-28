@@ -87,7 +87,7 @@ export function AgentCommandCenter() {
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto h-[600px]">
+      <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto min-h-[600px] h-auto">
         {/* Left Panel: The Stage (Holographic View) */}
         <div className="flex-1 relative bg-[#0b0c0d] rounded-3xl border border-white/10 overflow-hidden flex flex-col">
           {/* Holographic Grid Background */}

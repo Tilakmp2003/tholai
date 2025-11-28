@@ -125,7 +125,7 @@ export function CodePreviewPremium() {
               </div>
             </div>
 
-            <div className="flex h-[600px]">
+            <div className="flex flex-col md:flex-row min-h-[400px] md:h-[600px]">
               {/* Sidebar: Explorer & Chat */}
               <div className="w-64 border-r border-white/5 flex flex-col hidden md:flex">
                 {/* Explorer */}
@@ -200,25 +200,28 @@ export function CodePreviewPremium() {
                 </div>
 
                 {/* Code Editor */}
-                <div className="flex-1 p-6 font-mono text-sm overflow-auto relative group">
+                <div className="flex-1 p-3 md:p-6 font-mono text-[10px] md:text-sm overflow-auto relative group">
                   <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                       Dev Agent Typing...
                     </div>
                   </div>
-                  <pre className="text-gray-300 leading-relaxed">
+                  <pre className="text-gray-300 leading-relaxed whitespace-pre-wrap md:whitespace-pre">
                     <code dangerouslySetInnerHTML={{ 
-                      __html: code.replace(
-                        /import|export|function|async|const|new|return|await/g, 
-                        match => `<span class="text-purple-400">${match}</span>`
-                      ).replace(
-                        /".*?"/g,
-                        match => `<span class="text-green-400">${match}</span>`
-                      ).replace(
-                        /\/\/.*$/gm,
-                        match => `<span class="text-gray-500">${match}</span>`
-                      )
+                      __html: code
+                        .replace(
+                          /".*?"/g,
+                          match => `<span class="text-green-400">${match}</span>`
+                        )
+                        .replace(
+                          /\/\/.*$/gm,
+                          match => `<span class="text-gray-500">${match}</span>`
+                        )
+                        .replace(
+                          /\b(import|export|function|async|const|new|return|await)\b/g, 
+                          match => `<span class="text-purple-400">${match}</span>`
+                        )
                     }} />
                     <span className="animate-pulse inline-block w-2 h-4 bg-primary align-middle ml-1" />
                   </pre>

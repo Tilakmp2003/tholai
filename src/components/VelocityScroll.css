@@ -254,16 +254,55 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
+  .velocity-container {
+    padding: 0 1.5rem;
+  }
+  
   .velocity-layout {
     grid-template-columns: 1fr;
     gap: 4rem;
   }
+
   .velocity-header {
     position: relative;
     top: 0;
+    margin-bottom: 2rem;
+  }
+
+  .velocity-title {
+    font-size: 3.5rem; /* Reduced from 4rem/6rem */
+    line-height: 1;
+  }
+  
+  .velocity-description {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .velocity-cards {
+    gap: 4rem; /* Reduced gap */
+    padding-top: 0;
+    padding-bottom: 4rem;
+  }
+  
+  .velocity-card-wrapper {
     margin-bottom: 4rem;
   }
-  .velocity-title {
-    font-size: 4rem;
+  
+  .velocity-card {
+    height: auto;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .card-visual {
+    height: 300px; /* Fixed height for visual on mobile */
+    flex: none;
   }
 }
