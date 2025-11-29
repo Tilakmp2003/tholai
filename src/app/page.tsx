@@ -15,7 +15,7 @@ export default function Home() {
     <main className="min-h-screen bg-black selection:bg-primary/20 selection:text-primary overflow-x-hidden">
       <FloatingNavbar />
       <HeroPremium />
-      <InfiniteMarquee />
+
       <VelocityScroll />
       <ComparisonSection />
       <PipelinePremium />

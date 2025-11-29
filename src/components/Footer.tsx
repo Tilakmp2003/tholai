@@ -40,9 +40,9 @@ export function Footer() {
             © {new Date().getFullYear()} Tholai Inc. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="text-gray-400 hover:text-white transition-colors"><Twitter className="w-5 h-5" /></Link>
-            <Link href="#" className="text-gray-400 hover:text-white transition-colors"><Github className="w-5 h-5" /></Link>
-            <Link href="#" className="text-gray-400 hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></Link>
+            <Link href="https://x.com/tikpicksolution" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors"><Twitter className="w-5 h-5" /></Link>
+            <Link href="https://github.com/Tilakmp2003" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors"><Github className="w-5 h-5" /></Link>
+            <Link href="https://www.linkedin.com/in/tilak-m-p-619060250/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></Link>
           </div>
         </div>
       </div>

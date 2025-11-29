@@ -66,14 +66,7 @@ export function HeroPremium() {
               </Link>
             </div>
 
-            <div className="mt-12 flex items-center gap-6 text-sm text-gray-500">
-              <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-700 to-black border-2 border-[#060608]" />
-                ))}
-              </div>
-              <p>Trusted by <strong className="text-white">65+ engineering teams</strong></p>
-            </div>
+
           </motion.div>
 
           {/* Right: 3D Terminal */}
