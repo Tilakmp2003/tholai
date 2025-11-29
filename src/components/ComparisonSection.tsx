@@ -97,6 +97,9 @@ export function ComparisonSection() {
           <div className="grid-spotlight" />
           
           <div className="comparison-table">
+            {/* Floating Highlight Column */}
+            <div className="tholai-highlight-column" />
+
             {/* Header Row */}
             <div className="comp-cell header">Feature / Capability</div>
             <div className="comp-cell header tholai">
@@ -107,10 +110,10 @@ export function ComparisonSection() {
                 <span className="text-white font-bold tracking-wider">THOLAI</span>
               </div>
             </div>
-            <div className="comp-cell header">Devin</div>
-            <div className="comp-cell header">Cursor</div>
-            <div className="comp-cell header">Replit</div>
-            <div className="comp-cell header">GPT-o1</div>
+            <div className="comp-cell header col-devin">Devin</div>
+            <div className="comp-cell header col-cursor">Cursor</div>
+            <div className="comp-cell header col-replit">Replit</div>
+            <div className="comp-cell header col-others">GPT-o1</div>
 
             {/* Data Rows */}
             {comparisonData.map((row, idx) => {
@@ -147,25 +150,25 @@ export function ComparisonSection() {
 
                   {/* Competitors */}
                   <div 
-                    className={cn("comp-cell justify-center flex-col gap-1", isDimmed && "opacity-30 blur-[1px]")}
+                    className={cn("comp-cell justify-center flex-col gap-1 col-devin", isDimmed && "opacity-30 blur-[1px]")}
                     onMouseEnter={() => setHoveredRow(idx)}
                   >
                     <StatusIcon status={row.devin} /><StatusText status={row.devin} />
                   </div>
                   <div 
-                    className={cn("comp-cell justify-center flex-col gap-1", isDimmed && "opacity-30 blur-[1px]")}
+                    className={cn("comp-cell justify-center flex-col gap-1 col-cursor", isDimmed && "opacity-30 blur-[1px]")}
                     onMouseEnter={() => setHoveredRow(idx)}
                   >
                     <StatusIcon status={row.cursor} /><StatusText status={row.cursor} />
                   </div>
                   <div 
-                    className={cn("comp-cell justify-center flex-col gap-1", isDimmed && "opacity-30 blur-[1px]")}
+                    className={cn("comp-cell justify-center flex-col gap-1 col-replit", isDimmed && "opacity-30 blur-[1px]")}
                     onMouseEnter={() => setHoveredRow(idx)}
                   >
                     <StatusIcon status={row.replit} /><StatusText status={row.replit} />
                   </div>
                   <div 
-                    className={cn("comp-cell justify-center flex-col gap-1", isDimmed && "opacity-30 blur-[1px]")}
+                    className={cn("comp-cell justify-center flex-col gap-1 col-others", isDimmed && "opacity-30 blur-[1px]")}
                     onMouseEnter={() => setHoveredRow(idx)}
                   >
                     <StatusIcon status={row.others} /><StatusText status={row.others} />

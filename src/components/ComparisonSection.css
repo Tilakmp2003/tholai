@@ -117,19 +117,38 @@
 }
 
 /* Tholai Column - The Beam */
+/* Tholai Column - The Beam */
 .comp-cell.tholai {
-  background: rgba(59, 130, 246, 0.02);
+  /* background: rgba(59, 130, 246, 0.02); Removed for floating highlight */
   color: #fff;
   font-weight: 600;
-  border-right: 1px solid rgba(59, 130, 246, 0.1);
-  border-left: 1px solid rgba(59, 130, 246, 0.1);
-  box-shadow: inset 0 0 30px rgba(59, 130, 246, 0.02);
+  /* border-right: 1px solid rgba(59, 130, 246, 0.1); */
+  /* border-left: 1px solid rgba(59, 130, 246, 0.1); */
+  /* box-shadow: inset 0 0 30px rgba(59, 130, 246, 0.02); */
+  position: relative;
+  z-index: 5; /* Above highlight */
 }
 
 .comp-cell.tholai.header {
-  background: rgba(59, 130, 246, 0.1);
-  border-top: 1px solid rgba(59, 130, 246, 0.3);
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+  /* background: rgba(59, 130, 246, 0.1); */
+  /* border-top: 1px solid rgba(59, 130, 246, 0.3); */
+  /* box-shadow: 0 0 30px rgba(59, 130, 246, 0.1); */
+  z-index: 5;
+}
+
+/* Floating Highlight Column */
+.tholai-highlight-column {
+  grid-column: 2;
+  grid-row: 1 / -1; /* Span all rows */
+  background: rgba(59, 130, 246, 0.03);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 16px;
+  margin: 0.5rem 0; /* Vertical breathing room */
+  position: absolute; /* Fixed: Removed from flow */
+  inset: 0; /* Fill the grid cell area */
+  z-index: 0;
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.05);
+  pointer-events: none;
 }
 
 /* Hover Interaction */
@@ -165,7 +184,7 @@
   transition: opacity 0.2s;
 }
 
-.comp-cell:hover ~ .comp-row-hover { /* This selector is tricky in grid, handled in React */ }
+
 
 /* Icons */
 .status-icon {
@@ -216,6 +235,89 @@
   
   .comparison-title {
     font-size: 2.5rem;
+  }
+}
+
+/* Mobile Compact Mode - Full Visibility */
+@media (max-width: 600px) {
+  .comparison-container {
+    padding: 0 0.5rem;
+    overflow: hidden;
+  }
+
+  .comparison-grid-wrapper {
+    width: 100%;
+    overflow-x: hidden; /* Hide layout overflow */
+    border-radius: 16px;
+    background: transparent; /* Remove bg to avoid box looking weird */
+  }
+
+  .comparison-table {
+    width: 650px; /* Increased width for better text wrapping */
+    min-width: 650px;
+    transform: scale(0.54); /* Reduced scale to fit 375px screen (351px actual) */
+    transform-origin: 0 0;
+    margin-bottom: -42%; /* Adjusted margin for smaller scale */
+    background: #050505;
+    border-radius: 24px;
+    padding: 0.5rem;
+    
+    /* 5 Columns: Feature (2fr) | Tholai | Devin | Cursor | Replit */
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  }
+
+  /* Hide extra columns */
+  .col-others {
+    display: none !important;
+  }
+
+  /* Force Replit to show */
+  .col-replit {
+    display: flex !important;
+  }
+
+  /* Disable sticky on mobile since we show everything */
+  .comp-cell:nth-child(6n+1),
+  .comp-cell.header:first-child {
+    position: static;
+    box-shadow: none;
+    border-right: 1px solid rgba(255,255,255,0.03);
+  }
+
+  /* Adjust header text for readability at small scale */
+  .comp-cell.header {
+    font-size: 1.2rem; /* Visually ~10px */
+    font-weight: 700;
+    padding: 1rem 0.5rem;
+  }
+
+  .comp-cell {
+    font-size: 1.1rem; /* Visually ~9px */
+    font-weight: 600;
+    padding: 0.5rem;
+    height: 70px; /* Taller cells for readability */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comp-cell.feature-name {
+    justify-content: flex-start;
+    padding-left: 1rem;
+  }
+  
+  /* Ensure status icons are visible */
+  .status-icon {
+    width: 2rem; /* Larger to survive scaling */
+    height: 2rem;
+  }
+}
+
+/* Large Mobile Optimization (400px - 600px) */
+@media (min-width: 400px) and (max-width: 600px) {
+  .comparison-table {
+    transform: scale(0.65); /* Larger scale for bigger phones */
+    margin-bottom: -32%; /* Less negative margin needed */
   }
 }
 
@@ -332,6 +434,7 @@
   padding: 1px;
   background: linear-gradient(180deg, rgba(255,255,255,0.1), transparent);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
